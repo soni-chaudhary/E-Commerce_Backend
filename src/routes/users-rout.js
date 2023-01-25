@@ -9,15 +9,30 @@ const tokenString="This is dummy data";
 router.post("/createaccount",async(req,res)=>{  
     try{
     const {userId,fullname,email,phoneno,password,address,country,city,pincode}=req.body;
-    const newUser=await userModel.findOne({userId,fullname,email,phoneno,password,address,country,city,pincode});
+    console.log("done12 line")
+    const newUser=await userModel.find({
+        userId,
+        fullname,
+        email,
+        phoneno,
+        password,
+        address,
+        country,
+        city,
+        pincode});
     const salt=await bcrypt.genSalt(10);
     const hashPassword=await bcrypt.hash(password,salt);
+    console.log(newUser)
     if(newUser){
+        console.log("done16 line")
         return res.status(200).json({status:false,msg:'All realdy exist'});
+        
     }else{
+        console.log("done122 line")
         const data=  await userModel.create({
             userId,fullname,email,phoneno,"password":hashPassword,address,country,city,pincode        
         });
+        console.log("done26 line")
         return res.status(200).json({status:true,msg:data})
     }}
     catch(err){
@@ -29,7 +44,7 @@ router.post("/createaccount",async(req,res)=>{
 router.post("/login",async(req,res)=>{
     try{
     const {email,password}=req.body;  
-    const user=await userModel.findOne({email});
+    const user=await userModel.find({email});
     if(user.length<1){
         return res.status(401).json({status:false,msg:"User not fount"});
     }
