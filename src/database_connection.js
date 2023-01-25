@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 
-const url="mongodb://localhost:27017/E-CommerceDatabase";
+// const url="mongodb://localhost:27017/E-CommerceDatabase";
+const url ="mongodb+srv://soni_chaudhary:Soni@123@&@cluster0.qij1ode.mongodb.net/E-CommerceDatabase"
 
 mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology:true,family:4})
 .then(()=>{
